@@ -11,16 +11,18 @@ postconf -e "maillog_file = /dev/stdout"
 postconf -e "mydestination = localhost"
 postconf -e "mydomain = ${mydomain}"
 postconf -e "myhostname = ${myhostname:-mail}.${mydomain}"
-postconf -e "mynetworks = ${mynetworks:-192.168.0.0/16,172.16.0.0/12}"
+postconf -e "mynetworks = ${mynetworks:-10.0.0.0/8,192.168.0.0/16,172.16.0.0/12}"
 postconf -e "myorigin = ${mydomain}"
 postconf -e "relayhost = [${relayhost}]:${relayport:-587}"
 postconf -e "smtp_host_lookup = native,dns"
 postconf -e "smtp_sasl_auth_enable = yes"
 postconf -e "smtp_sasl_password_maps = hash:/etc/postfix/sasl_password"
 postconf -e "smtp_sasl_security_options = noanonymous"
+postconf -e "smtp_tls_security_level = may"
 postconf -e "smtp_use_tls = yes"
-echo "nameserver 1.1.1.1" > /var/spool/postfix/etc/resolv.conf
-echo "nameserver 1.1.1.1" > /etc/resolv.conf
+postconf -e "smtputf8_enable = yes"
+echo "nameserver 10.20.1.1" > /var/spool/postfix/etc/resolv.conf
+echo "nameserver 8.8.8.8" > /etc/resolv.conf
 
 echo "Starting postfix"
 exec /usr/sbin/postfix start-fg

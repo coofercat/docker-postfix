@@ -4,6 +4,9 @@ This is a simple container running postfix. It will accept mails and relay them 
 
 Mails will be accepted on Port 25 for delivery without authentication by the containers. Access control is meant to happen on the network level, i.e. by limiting which hosts/containers can connect to the relay and whitelisting network addresses.
 
+*Forked* - I've updated a bit, and made it work with modern SASL packages etc. It's mostly for my own purposes
+rather than a generic package you can use in all circumstances, although it's fairly flexible
+
 ## Building
 
 Building the container will fetch `debian:bullseye-slim` as the container's base.
